@@ -10,6 +10,8 @@ import pygame
 # FROM SETTINGS.PY, WE IMPORT THE SETTINGS CLASS
 from ch12_settings import Settings
 
+from ch12_ship import Ship
+
 
 def run_game():
     # initialize game nad create the 'screen' object
@@ -26,6 +28,10 @@ def run_game():
     # set background color
     # bg_color = (127, 255, 212)  # aquamarine
 
+    # MAKE A SHIP
+    # MAKING AN INSTANCE OF THE CLASS SHIP
+    ship = Ship(screen)
+
     # starts the main game controlling loop for the game
     while True:
         # write an event loop to watch for the keyboard and mouse events
@@ -36,6 +42,9 @@ def run_game():
         # Redraw screen during each pass through the loop
         # And setting the screen color
         screen.fill(ai_settings.bg_color)  # USED INSTANCE TO CHANGE THE COLOR
+
+        # MAKING SHIP ON THE SCREEN
+        ship.blitme()
 
         # make the most recently drawn screen visible
         pygame.display.flip()
