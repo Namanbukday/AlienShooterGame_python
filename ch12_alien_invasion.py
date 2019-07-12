@@ -4,13 +4,16 @@
 
 # CREATING A PYGAME WINDOW AND RESPONDING TO USER INPUTS :
 
-import sys
+# import sys
+
 import pygame
 
 # FROM SETTINGS.PY, WE IMPORT THE SETTINGS CLASS
 from ch12_settings import Settings
 
 from ch12_ship import Ship
+
+import ch12_game_functions as gf
 
 
 def run_game():
@@ -30,16 +33,16 @@ def run_game():
 
     # MAKE A SHIP
     # MAKING AN INSTANCE OF THE CLASS SHIP
-    ship = Ship(screen)
+    ship = Ship(ai_settings, screen)  # SENDING 2 INSTANCES IN THE ARGUMENT
 
-    # starts the main game controlling loop for the game
+    # starts the main game controlling loop for the games
     while True:
-        # write an event loop to watch for the keyboard and mouse events
+        '''# write an event loop to watch for the keyboard and mouse events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                sys.exit()
-
-        # Redraw screen during each pass through the loop
+                sys.exit()'''
+        gf.check_events(ship)  # calling func through an instance
+        '''# Redraw screen during each pass through the loop
         # And setting the screen color
         screen.fill(ai_settings.bg_color)  # USED INSTANCE TO CHANGE THE COLOR
 
@@ -47,7 +50,9 @@ def run_game():
         ship.blitme()
 
         # make the most recently drawn screen visible
-        pygame.display.flip()
+        pygame.display.flip()'''
+        ship.update()
+        gf.update_screen(ai_settings, screen, ship)  # TO UPDATE THE SCREEN
 
 
 run_game()
