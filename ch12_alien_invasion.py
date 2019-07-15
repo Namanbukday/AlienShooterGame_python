@@ -15,6 +15,8 @@ from ch12_ship import Ship
 
 import ch12_game_functions as gf
 
+from pygame.sprite import Group
+
 
 def run_game():
     # initialize game nad create the 'screen' object
@@ -35,24 +37,28 @@ def run_game():
     # MAKING AN INSTANCE OF THE CLASS SHIP
     ship = Ship(ai_settings, screen)  # SENDING 2 INSTANCES IN THE ARGUMENT
 
+    # MAKE A GROUP TO STORE BULLETS IN.
+    # AN INSTANCE NAMED 'BULLETS'
+    bullets = Group()
+
     # starts the main game controlling loop for the games
     while True:
         '''# write an event loop to watch for the keyboard and mouse events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()'''
-        gf.check_events(ship)  # calling func through an instance
+        gf.check_events(ai_settings, screen, ship, bullets)  # calling func through an instance
         '''# Redraw screen during each pass through the loop
         # And setting the screen color
         screen.fill(ai_settings.bg_color)  # USED INSTANCE TO CHANGE THE COLOR
-
         # MAKING SHIP ON THE SCREEN
         ship.blitme()
-
         # make the most recently drawn screen visible
         pygame.display.flip()'''
+
         ship.update()
-        gf.update_screen(ai_settings, screen, ship)  # TO UPDATE THE SCREEN
+        gf.update_bullets(bullets)
+        gf.update_screen(ai_settings, screen, ship, bullets)  # TO UPDATE THE SCREEN
 
 
 run_game()
