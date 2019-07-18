@@ -40,6 +40,7 @@ def run_game():
     # MAKE A GROUP TO STORE BULLETS IN.
     # AN INSTANCE NAMED 'BULLETS'
     bullets = Group()
+    aliens = Group()
 
     # starts the main game controlling loop for the games
     while True:
@@ -58,7 +59,7 @@ def run_game():
 
         ship.update()
         gf.update_bullets(bullets)
-        gf.update_screen(ai_settings, screen, ship, bullets)  # TO UPDATE THE SCREEN
+        gf.update_screen(ai_settings, screen, ship, aliens, bullets)  # TO UPDATE THE SCREEN
 
 
 run_game()
