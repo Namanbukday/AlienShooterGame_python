@@ -11,6 +11,8 @@ import pygame
 # FROM SETTINGS.PY, WE IMPORT THE SETTINGS CLASS
 from ch12_settings import Settings
 
+from ch13_game_stats import GameStats
+
 from ch12_ship import Ship
 
 import ch12_game_functions as gf
@@ -37,10 +39,15 @@ def run_game():
     # MAKING AN INSTANCE OF THE CLASS SHIP
     ship = Ship(ai_settings, screen)  # SENDING 2 INSTANCES IN THE ARGUMENT
 
+    # CREATE AN INSTANCE TO STORE GAME STATISTICS.
+    stats = GameStats(ai_settings)
+
     # MAKE A GROUP TO STORE BULLETS IN.
     # AN INSTANCE NAMED 'BULLETS'
     bullets = Group()
     aliens = Group()
+
+    gf.create_fleet(ai_settings, screen, ship, aliens)
 
     # starts the main game controlling loop for the games
     while True:
@@ -57,8 +64,11 @@ def run_game():
         # make the most recently drawn screen visible
         pygame.display.flip()'''
 
-        ship.update()
-        gf.update_bullets(bullets)
+        if stats.game_active:
+            ship.update()
+            gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
+            gf.update_aliens(ai_settings, stats, screen, ship, aliens, aliens)
+
         gf.update_screen(ai_settings, screen, ship, aliens, bullets)  # TO UPDATE THE SCREEN
 
 
