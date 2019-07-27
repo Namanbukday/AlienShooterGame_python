@@ -13,6 +13,8 @@ from ch12_settings import Settings
 
 from ch13_game_stats import GameStats
 
+from ch14_button import Button
+
 from ch12_ship import Ship
 
 import ch12_game_functions as gf
@@ -42,6 +44,9 @@ def run_game():
     # CREATE AN INSTANCE TO STORE GAME STATISTICS.
     stats = GameStats(ai_settings)
 
+    # MAKE THE PLAY BUTTON :
+    play_button = Button(ai_settings, screen, "PLAY")
+
     # MAKE A GROUP TO STORE BULLETS IN.
     # AN INSTANCE NAMED 'BULLETS'
     bullets = Group()
@@ -55,7 +60,9 @@ def run_game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()'''
-        gf.check_events(ai_settings, screen, ship, bullets)  # calling func through an instance
+        gf.check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets)
+        # calling func through an instance
+
         '''# Redraw screen during each pass through the loop
         # And setting the screen color
         screen.fill(ai_settings.bg_color)  # USED INSTANCE TO CHANGE THE COLOR
@@ -69,7 +76,7 @@ def run_game():
             gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
             gf.update_aliens(ai_settings, stats, screen, ship, aliens, aliens)
 
-        gf.update_screen(ai_settings, screen, ship, aliens, bullets)  # TO UPDATE THE SCREEN
+        gf.update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button)  # TO UPDATE THE SCREEN
 
 
 run_game()
