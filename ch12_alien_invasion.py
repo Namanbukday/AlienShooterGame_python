@@ -13,6 +13,8 @@ from ch12_settings import Settings
 
 from ch13_game_stats import GameStats
 
+from ch14_scoreboard import Scoreboard
+
 from ch14_button import Button
 
 from ch12_ship import Ship
@@ -41,8 +43,9 @@ def run_game():
     # MAKING AN INSTANCE OF THE CLASS SHIP
     ship = Ship(ai_settings, screen)  # SENDING 2 INSTANCES IN THE ARGUMENT
 
-    # CREATE AN INSTANCE TO STORE GAME STATISTICS.
+    # CREATE AN INSTANCE TO STORE GAME STATISTICS AND CREATE A SCOREBOARD :
     stats = GameStats(ai_settings)
+    sb = Scoreboard(ai_settings, screen, stats)
 
     # MAKE THE PLAY BUTTON :
     play_button = Button(ai_settings, screen, "PLAY")
@@ -60,7 +63,7 @@ def run_game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()'''
-        gf.check_events(ai_settings, screen, stats, play_button, ship, aliens, bullets)
+        gf.check_events(ai_settings, screen, stats, sb, play_button, ship, aliens, bullets)
         # calling func through an instance
 
         '''# Redraw screen during each pass through the loop
@@ -73,10 +76,10 @@ def run_game():
 
         if stats.game_active:
             ship.update()
-            gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
-            gf.update_aliens(ai_settings, stats, screen, ship, aliens, aliens)
+            gf.update_bullets(ai_settings, screen, stats, sb, ship, aliens, bullets)
+            gf.update_aliens(ai_settings, screen, stats, sb, ship, aliens, aliens)
 
-        gf.update_screen(ai_settings, screen, stats, ship, aliens, bullets, play_button)  # TO UPDATE THE SCREEN
+        gf.update_screen(ai_settings, screen, stats, sb, ship, aliens, bullets, play_button)  # TO UPDATE THE SCREEN
 
 
 run_game()
